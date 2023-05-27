@@ -91,4 +91,4 @@ LN operator"" _ln(const char *word);
 
 LN operator"" _ln(uint64_t value);
 
-#endif
+#endif // LN_H

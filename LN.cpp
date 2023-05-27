@@ -46,6 +46,7 @@ LN::LN(const LN &ln)
 
 LN::LN(const char *word)
 {
+	Nan = false;
 	size_t i = 0;
 	if (word[0] != '-')
 	{
@@ -88,6 +89,7 @@ LN::LN(const char *word)
 
 LN::LN(std::string_view &word)
 {
+	Nan = false;
 	size_t i = 0;
 	if (word.front() != '-')
 	{

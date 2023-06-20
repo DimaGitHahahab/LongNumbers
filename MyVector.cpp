@@ -2,9 +2,9 @@
 
 void MyVector::copyData(uint32_t *newData) const
 {
-	for (size_t i = 0; i < size; ++i)
+	for (size_t i = 0; i < size_; ++i)
 	{
-		newData[i] = data[i];
+		newData[i] = data_[i];
 	}
 }
 
@@ -12,15 +12,15 @@ void MyVector::resize()
 {
 	try
 	{
-		if (size == capacity)
+		if (size_ == capacity_)
 		{
-			capacity = (capacity == 0) ? 1 : capacity * 2;
-			auto *newData = new uint32_t[capacity];
+			capacity_ = (capacity_ == 0) ? 1 : capacity_ * 2;
+			auto *newData = new uint32_t[capacity_];
 
 			copyData(newData);
 
-			delete[] data;
-			data = newData;
+			delete[] data_;
+			data_ = newData;
 		}
 	} catch (const std::bad_alloc &e)
 	{
@@ -28,11 +28,11 @@ void MyVector::resize()
 	}
 }
 
-MyVector::MyVector() : data(nullptr), size(0), capacity(0) {}
+MyVector::MyVector() : data_(nullptr), size_(0), capacity_(0) {}
 
 MyVector::~MyVector()
 {
-	delete[] data;
+	delete[] data_;
 }
 
 MyVector &MyVector::operator=(const MyVector &that)
@@ -41,13 +41,13 @@ MyVector &MyVector::operator=(const MyVector &that)
 	{
 		try
 		{
-			auto *newData = new uint32_t[that.capacity];
+			auto *newData = new uint32_t[that.capacity_];
 			that.copyData(newData);
 
-			delete[] data;
-			data = newData;
-			size = that.size;
-			capacity = that.capacity;
+			delete[] data_;
+			data_ = newData;
+			size_ = that.size_;
+			capacity_ = that.capacity_;
 		} catch (const std::bad_alloc &e)
 		{
 			throw e;
@@ -58,56 +58,56 @@ MyVector &MyVector::operator=(const MyVector &that)
 
 uint32_t &MyVector::operator[](size_t idx)
 {
-	if (idx >= size)
+	if (idx >= size_)
 	{
 		throw std::out_of_range("Index is out of range");
 	}
-	if (data == nullptr)
+	if (data_ == nullptr)
 	{
 		throw std::runtime_error("Vector is empty");
 	}
 
-	return data[idx];
+	return data_[idx];
 }
 
 const uint32_t &MyVector::operator[](size_t idx) const
 {
-	if (idx >= size)
+	if (idx >= size_)
 	{
 		throw std::out_of_range("Index is out of range");
 	}
 
-	if (data == nullptr)
+	if (data_ == nullptr)
 	{
 		throw std::runtime_error("Vector is empty");
 	}
 
-	return data[idx];
+	return data_[idx];
 }
 
 size_t MyVector::getSize() const
 {
-	return size;
+	return size_;
 }
 
 void MyVector::popBack()
 {
-	if (size == 0)
+	if (size_ == 0)
 	{
 		throw std::underflow_error("Vector is empty");
 	}
-	--size;
+	--size_;
 }
 
 void MyVector::pushBack(uint32_t value)
 {
 	resize();
-	data[size++] = value;
+	data_[size_++] = value;
 }
 
 void MyVector::resize(size_t newSize)
 {
-	if (newSize > capacity)
+	if (newSize > capacity_)
 	{
 		try
 		{
@@ -115,13 +115,13 @@ void MyVector::resize(size_t newSize)
 
 			copyData(newData);
 
-			delete[] data;
-			data = newData;
-			capacity = newSize;
+			delete[] data_;
+			data_ = newData;
+			capacity_ = newSize;
 		} catch (const std::bad_alloc &e)
 		{
 			throw e;
 		}
 	}
-	size = newSize;
+	size_ = newSize;
 }

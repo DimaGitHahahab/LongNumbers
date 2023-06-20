@@ -16,7 +16,7 @@
 #endif
 
 #ifndef ERROR_DATA_INVALID
-// The data is invalid
+// The data_ is invalid
 #define ERROR_DATA_INVALID 3
 #endif
 

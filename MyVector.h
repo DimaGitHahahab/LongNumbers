@@ -3,15 +3,16 @@
 
 #include "return_codes.h"
 
+#include <cstdint>
 #include <new>
 #include <stdexcept>
 
 class MyVector
 {
   private:
-	size_t size = 0;
-	size_t capacity = 0;
-	uint32_t *data = nullptr;
+	size_t size_ = 0;
+	size_t capacity_ = 0;
+	uint32_t *data_ = nullptr;
 	void copyData(uint32_t *newData) const;
 	void resize();
 

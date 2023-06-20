@@ -4,14 +4,18 @@
 #include "MyVector.h"
 #include <string_view>
 
+#include <cstdint>
+#include <iomanip>
+#include <iostream>
+
 class LN
 {
   private:
-	MyVector chunks;
-	bool sign;
-	bool Nan;
+	MyVector chunks_;
+	bool sign_;
+	bool Nan_;
 
-	int compareByModule(const LN &ln) const;
+	int compareByModule(const LN &that) const;
 
 	void deleteExtraZeros();
 
@@ -84,11 +88,9 @@ class LN
 
 	bool operator>=(const LN &ln);
 
-	void print() const;
+	void hexaDecimalPrint(std::ostream &outputStream);
 };
 
 LN operator"" _ln(const char *word);
 
-LN operator"" _ln(uint64_t value);
-
-#endif // LN_H
+#endif	  // LN_H
